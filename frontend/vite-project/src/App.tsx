@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchArticles } from "./services/api";
+import "./App.css";
 
 interface Article {
   title: string;
@@ -18,22 +19,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">AI News Summarizer</h1>
-      <div className="space-y-4">
+    <div className="app-container">
+      <h1>AI News Summarizer</h1>
+      <div className="articles-grid">
         {articles.map((a, i) => (
-          <div
-            key={i}
-            className="border-l-4 border-blue-500 bg-white rounded-lg shadow-md p-4 hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-lg font-bold mb-1">{a.title}</h2>
-            <p className="text-gray-500 text-sm mb-2">{a.source}</p>
-            <p className="text-gray-700">{a.summary}</p>
+          <div key={i} className="article-card">
+            <h2 className="article-title">{a.title}</h2>
+            <p className="article-source">{a.source}</p>
+            <p className="article-summary">{a.summary}</p>
             <a
               href={a.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 mt-2 inline-block hover:underline"
+              className="article-link"
             >
               Read full article →
             </a>
