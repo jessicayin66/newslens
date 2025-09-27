@@ -46,16 +46,10 @@ h1::after {
 .category-toolbar {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 60px;
+  gap: 40px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
-  padding: 32px;
-  background: linear-gradient(135deg, #0f2f0f 0%, #1a3f1a 100%);
-  border-radius: 20px;
-  border: 2px solid #0a1f0a;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 20px 0;
   position: relative;
 }
 
@@ -63,75 +57,176 @@ h1::after {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
-  border-radius: 20px;
-  pointer-events: none;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0f2f0f, transparent);
 }
 
 .category-button {
-  padding: 16px 28px;
-  border-radius: 16px;
+  padding: 12px 0;
   font-family: "Playfair Display", serif;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: all 0.4s ease;
-  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  border: none;
+  background: none;
   cursor: pointer;
+  color: #0f2f0f;
   position: relative;
-  overflow: hidden;
-  min-width: 140px;
-  text-align: center;
   letter-spacing: 0.5px;
 }
 
-.category-button::before {
+.category-button::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(144, 238, 144, 0.3), transparent);
-  transition: left 0.6s;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0f2f0f, #1a3f1a);
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
-.category-button:hover::before {
-  left: 100%;
+.category-button:hover::after {
+  width: 100%;
 }
 
 .category-button.active {
-  background: linear-gradient(135deg, #ffffff, #f0f8f0);
   color: #0f2f0f;
-  border-color: #ffffff;
-  box-shadow: 
-    0 6px 20px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(255, 255, 255, 0.3);
-  transform: translateY(-3px);
-  text-shadow: none;
+  font-weight: 700;
+}
+
+.category-button.active::after {
+  width: 100%;
+  background: linear-gradient(90deg, #0f2f0f, #1a3f1a);
 }
 
 .category-button.inactive {
-  background: rgba(255, 255, 255, 0.1);
-  color: #e8f5e8;
-  border-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
+  color: #6b7280;
 }
 
 .category-button.inactive:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border-color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  color: #0f2f0f;
 }
 
 .category-button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  transform: none !important;
+}
+
+/* Bias Distribution Container */
+.bias-distribution-container {
+  margin: 40px 0;
+  padding: 0 20px;
+}
+
+.topic-cluster {
+  margin-bottom: 50px;
+}
+
+.cluster-header {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+  backdrop-filter: blur(10px);
+}
+
+.cluster-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0f2f0f;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.bias-distribution-meter {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.distribution-bar {
+  display: flex;
+  height: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.distribution-segment {
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.distribution-segment:hover {
+  opacity: 0.8;
+  transform: scaleY(1.1);
+}
+
+.distribution-segment.active {
+  opacity: 0.9;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+  transform: scaleY(1.05);
+}
+
+.distribution-segment.left {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.distribution-segment.neutral {
+  background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+.distribution-segment.right {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.distribution-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.distribution-label {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-family: "Playfair Display", serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.distribution-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.distribution-label.active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+}
+
+.distribution-label.left {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.distribution-label.neutral {
+  color: #6b7280;
+  background: rgba(107, 114, 128, 0.1);
+}
+
+.distribution-label.right {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.1);
 }
 
 /* Grid container */
@@ -150,7 +245,7 @@ h1::after {
   box-shadow: 
     0 4px 16px rgba(0, 0, 0, 0.1),
     0 2px 4px rgba(0, 0, 0, 0.06);
-  padding: 28px;
+  padding: 24px;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -177,7 +272,7 @@ h1::after {
 
 .article-title {
   font-family: "Playfair Display", serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin: 0 0 16px;
   color: #1a202c;
@@ -200,8 +295,8 @@ h1::after {
 
 .article-summary {
   color: #4a5568;
-  margin-bottom: 24px;
-  line-height: 1.7;
+  margin-bottom: 20px;
+  line-height: 1.6;
   font-size: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -542,85 +637,6 @@ h1::after {
 }
 
 /* Bias Analysis Section */
-.bias-filter-section {
-  background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
-  border: 2px solid #0f2f0f;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.bias-filter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.bias-filter-header h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #0f2f0f;
-  margin: 0;
-}
-
-.balanced-diet-button {
-  background: linear-gradient(135deg, #0f2f0f, #1a3f1a);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.balanced-diet-button:hover {
-  background: linear-gradient(135deg, #1a3f1a, #0f2f0f);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 47, 15, 0.3);
-}
-
-.bias-filters {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.bias-filter-btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-family: "Crimson Text", serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.bias-filter-btn.active {
-  background: linear-gradient(135deg, #0f2f0f, #1a3f1a);
-  color: white;
-  border-color: #0f2f0f;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 47, 15, 0.3);
-}
-
-.bias-filter-btn:not(.active) {
-  background: rgba(15, 47, 15, 0.1);
-  color: #0f2f0f;
-  border-color: rgba(15, 47, 15, 0.3);
-}
-
-.bias-filter-btn:not(.active):hover {
-  background: rgba(15, 47, 15, 0.2);
-  transform: translateY(-1px);
-}
 
 /* Article Header with Bias Indicator */
 .article-header {
@@ -645,6 +661,52 @@ h1::after {
   overflow: hidden;
 }
 
+.bias-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-family: "Playfair Display", serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  min-width: 90px;
+  text-align: center;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.bias-tag.left-leaning {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+.bias-tag.right-leaning {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+.bias-tag.neutral {
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+  color: #6b7280;
+  border-color: #6b7280;
+}
+
+.bias-tag-label {
+  text-transform: capitalize;
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+
+.bias-confidence {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* Legacy bias-indicator support */
 .bias-indicator {
   display: flex;
   flex-direction: column;
@@ -679,9 +741,4 @@ h1::after {
 .bias-label {
   text-transform: capitalize;
   margin-bottom: 2px;
-}
-
-.bias-confidence {
-  font-size: 0.7rem;
-  opacity: 0.8;
 }

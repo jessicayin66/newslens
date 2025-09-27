@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.news_fetcher import fetch_articles
+from app.news_fetcher import fetch_articles, fetch_multiple_pages
 from app.models import Article, BiasAnalysis, BalancedDietRequest
 from app.bias_analyzer import BiasAnalyzer
 from pathlib import Path
@@ -33,7 +33,8 @@ app.add_middleware(
 
 @app.get("/articles")
 async def get_articles(category: str = "all", include_bias: bool = True):
-    articles = fetch_articles(NEWS_API_KEY, category=category)
+    # Fetch articles (limited to 100 for free NewsAPI accounts)
+    articles = fetch_multiple_pages(NEWS_API_KEY, category=category, total_articles=100)
     summarized_articles = []
     
     for a in articles:
@@ -70,7 +71,7 @@ async def get_articles(category: str = "all", include_bias: bool = True):
 @app.post("/articles/balanced")
 async def get_balanced_articles(request: BalancedDietRequest):
     """Get a balanced mix of articles based on political bias."""
-    articles = fetch_articles(NEWS_API_KEY, category=request.category)
+    articles = fetch_multiple_pages(NEWS_API_KEY, category=request.category, total_articles=100)
     analyzed_articles = []
     
     for a in articles:
@@ -117,10 +118,10 @@ async def get_balanced_articles(request: BalancedDietRequest):
 @app.get("/bias-stats")
 async def get_bias_statistics(category: str = "all"):
     """Get bias statistics for articles in a category."""
-    articles = fetch_articles(NEWS_API_KEY, category=category)
+    articles = fetch_multiple_pages(NEWS_API_KEY, category=category, total_articles=100)
     bias_stats = {"left-leaning": 0, "neutral": 0, "right-leaning": 0}
     
-    for a in articles[:20]:  # Analyze first 20 articles for stats
+    for a in articles:  # Analyze all available articles for stats
         try:
             bias_analysis = bias_analyzer.analyze_bias(
                 a.get("title", ""), 
