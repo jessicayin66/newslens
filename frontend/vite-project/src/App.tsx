@@ -132,7 +132,9 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <h1>NewsQuest</h1>
+      <div className="logo-container">
+        <h1>NewsLens</h1>
+      </div>
       
       {/* Category Toolbar */}
       <div className="category-toolbar">
