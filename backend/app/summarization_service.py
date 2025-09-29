@@ -233,8 +233,8 @@ class SummarizationService:
     
     def _clean_summary_text(self, text: str) -> str:
         """Clean summary text to remove formatting artifacts and ranking numbers."""
-        # Remove ranking numbers like "No.6", "No.3", etc.
-        text = re.sub(r'No\.\d+\s*', '', text)
+        # Remove ranking numbers like "No. 6", "No.3", etc. (with or without space)
+        text = re.sub(r'No\.\s*\d+\s*', '', text)
         
         # Remove standalone "The:" at the beginning
         text = re.sub(r'^The:\s*', '', text)
