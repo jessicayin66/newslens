@@ -742,3 +742,327 @@ h1::after {
   text-transform: capitalize;
   margin-bottom: 2px;
 }
+
+/* TL;DR Section Styles */
+.tldr-section {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px 0;
+  border: 2px solid #dee2e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tldr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tldr-header h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #0f2f0f;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tldr-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.toggle-details-button,
+.refresh-button {
+  background: linear-gradient(135deg, #0f2f0f, #1a3f1a);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: "Crimson Text", serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toggle-details-button:hover,
+.refresh-button:hover {
+  background: linear-gradient(135deg, #1a3f1a, #0f2f0f);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 47, 15, 0.3);
+}
+
+.tldr-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(15, 47, 15, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(15, 47, 15, 0.1);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-family: "Crimson Text", serif;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+  color: #0f2f0f;
+  font-weight: 600;
+}
+
+.tldr-summaries {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tldr-summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.tldr-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-color: #0f2f0f;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.summary-rank {
+  background: linear-gradient(135deg, #0f2f0f, #1a3f1a);
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 40px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.summary-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.article-count {
+  font-family: "Crimson Text", serif;
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.key-entities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.entity-tag {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1565c0;
+  font-family: "Crimson Text", serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #1976d2;
+}
+
+.summary-content {
+  margin-top: 12px;
+}
+
+.summary-content p {
+  font-family: "Crimson Text", serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.summary-content ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #2c3e50;
+}
+
+.summary-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  font-family: "Crimson Text", serif;
+  font-size: 1rem;
+}
+
+.tldr-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  color: #6c757d;
+}
+
+.tldr-loading .loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e9ecef;
+  border-top: 3px solid #0f2f0f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.tldr-loading span {
+  font-family: "Crimson Text", serif;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tldr-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  color: #dc3545;
+}
+
+.tldr-error p {
+  font-family: "Crimson Text", serif;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.retry-button {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: "Crimson Text", serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  background: linear-gradient(135deg, #c82333, #dc3545);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.tldr-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  color: #6c757d;
+}
+
+.tldr-empty p {
+  font-family: "Crimson Text", serif;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.tldr-loading-overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.tldr-loading-overlay .loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e9ecef;
+  border-top: 2px solid #0f2f0f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.tldr-loading-overlay span {
+  font-family: "Crimson Text", serif;
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Responsive design for TL;DR section */
+@media (max-width: 768px) {
+  .tldr-section {
+    padding: 16px;
+    margin: 16px 0;
+  }
+  
+  .tldr-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .tldr-controls {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .tldr-stats {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .summary-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .summary-rank {
+    align-self: flex-start;
+  }
+}

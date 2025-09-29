@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.news_fetcher import fetch_articles, fetch_multiple_pages
 from app.models import Article, BiasAnalysis, BalancedDietRequest
 from app.bias_analyzer import BiasAnalyzer
+from app.tldr_service import tldr_service
 from pathlib import Path
 from dotenv import load_dotenv
 from app.ai_summary import summarize_article
@@ -133,8 +134,76 @@ async def get_bias_statistics(category: str = "all"):
         except Exception as e:
             bias_stats["neutral"] += 1
     
-    return {
-        "category": category,
-        "bias_distribution": bias_stats,
-        "total_analyzed": sum(bias_stats.values())
-    }
+        return {
+            "category": category,
+            "bias_distribution": bias_stats,
+            "total_analyzed": sum(bias_stats.values())
+        }
+
+@app.get("/tldr/{category}")
+async def get_category_tldr(category: str = "all", force_refresh: bool = False):
+    """Get TL;DR summary for a specific category."""
+    try:
+        result = tldr_service.get_category_tldr(category, force_refresh)
+        return result
+    except Exception as e:
+        return {
+            "category": category,
+            "date": "Today",
+            "total_clusters": 0,
+            "total_articles": 0,
+            "summaries": [],
+            "error": str(e)
+        }
+
+@app.get("/tldr")
+async def get_all_tldr(force_refresh: bool = False):
+    """Get TL;DR summaries for all categories."""
+    try:
+        result = tldr_service.get_all_categories_tldr(force_refresh=force_refresh)
+        return result
+    except Exception as e:
+        return {
+            "date": "Today",
+            "total_categories": 0,
+            "total_articles": 0,
+            "total_clusters": 0,
+            "categories": {},
+            "error": str(e)
+        }
+
+@app.get("/trending/{category}")
+async def get_trending_topics(category: str = "all", min_cluster_size: int = 3):
+    """Get trending topics for a category."""
+    try:
+        trending = tldr_service.get_trending_topics(category, min_cluster_size)
+        return {
+            "category": category,
+            "trending_topics": trending,
+            "count": len(trending)
+        }
+    except Exception as e:
+        return {
+            "category": category,
+            "trending_topics": [],
+            "count": 0,
+            "error": str(e)
+        }
+
+@app.post("/tldr/clear-cache")
+async def clear_tldr_cache():
+    """Clear the TL;DR cache."""
+    try:
+        tldr_service.clear_cache()
+        return {"message": "TL;DR cache cleared successfully"}
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/tldr/cache-stats")
+async def get_tldr_cache_stats():
+    """Get TL;DR cache statistics."""
+    try:
+        stats = tldr_service.get_cache_stats()
+        return stats
+    except Exception as e:
+        return {"error": str(e)}

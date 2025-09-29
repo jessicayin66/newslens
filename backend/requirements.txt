@@ -28,3 +28,5 @@ scikit-learn==1.5.0
 numpy==1.26.4
 textblob==0.17.1
 vaderSentiment==3.3.2
+sentence-transformers==5.1.1
+sumy==0.11.0

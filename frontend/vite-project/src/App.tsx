@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchArticles } from "./services/api";
+import TLDRSection from "./components/TLDRSection";
 import "./App.css";
 
 interface Article {
@@ -104,10 +105,14 @@ export default function App() {
       return "Health & Medicine";
     } else if (category === "Technology") {
       return "Technology";
-    } else if (category === "Entertainment" || category === "Science" || category === "Sports") {
-      return "All"; // These categories don't have specific topic mappings
+    } else if (category === "Entertainment") {
+      return "Entertainment";
+    } else if (category === "Science") {
+      return "Science";
+    } else if (category === "Sports") {
+      return "Sports";
     }
-    return "All";
+    return category; // Return the category name as the topic
   };
   
   const selectedTopic = getTopicForCategory(selectedCategory);
@@ -201,6 +206,9 @@ export default function App() {
                 </div>
               </div>
             </div>
+            
+            {/* TL;DR Section */}
+            <TLDRSection category={selectedCategory} />
             
             <div className="articles-grid">
               {currentTopicArticles.map((article, i) => (
