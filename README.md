@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **NewsLens** is an intelligent news aggregation platform that combines traditional news consumption with AI-powered analysis to provide users with bias-aware, summarized news content. Built with modern web technologies and cutting-edge NLP models, it helps users navigate the complex media landscape with transparency and efficiency.
 
@@ -38,7 +37,7 @@
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/jessicayin66/news-analyzer.git
-cd ai-news-aggregator
+cd news-analyzer
 ```
 
 ### 2. Backend Setup
@@ -84,7 +83,6 @@ npm run dev
 ### 5. Access the Application
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:8000
-- **API Documentation**: http://localhost:8000/docs
 
 ## 📖 Usage Guide
 
