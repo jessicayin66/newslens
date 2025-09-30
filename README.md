@@ -57,10 +57,6 @@ venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Set up environment variables
-cp ../env.example .env
-# Edit .env with your NewsAPI key
 ```
 
 ### 3. Frontend Setup
@@ -71,9 +67,6 @@ cd ../frontend/vite-project
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp ../../env.example .env
-# Edit .env with your backend URL
 ```
 
 ### 4. Run the Application
@@ -92,32 +85,6 @@ npm run dev
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
-
-## 🔧 Configuration
-
-### Environment Variables
-
-#### Backend (.env)
-```bash
-# Required
-NEWSAPI_KEY=51f951d7b772475c96f43bd510490ee8
-
-# Optional
-ENVIRONMENT=development
-DEBUG=True
-CORS_ORIGINS=http://localhost:3000,http://localhost:5173
-LOG_LEVEL=INFO
-```
-
-#### Frontend (.env)
-```bash
-# Required
-VITE_API_URL=http://localhost:8000
-
-# Optional
-VITE_APP_NAME=NewsLens
-VITE_APP_VERSION=1.0.0
-```
 
 ## 📖 Usage Guide
 
