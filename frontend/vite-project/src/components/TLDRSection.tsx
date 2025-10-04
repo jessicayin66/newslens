@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchTLDR } from '../services/api';
 
 // Define types locally to avoid import issues
