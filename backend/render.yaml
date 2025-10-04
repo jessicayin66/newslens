@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements-render-lite.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    startCommand: uvicorn app.main_lite:app --host 0.0.0.0 --port $PORT --workers 1
     envVars:
       - key: NEWSAPI_KEY
         sync: false
