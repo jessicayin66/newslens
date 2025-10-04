@@ -3,8 +3,8 @@ services:
     name: news-analyzer-backend
     env: python
     plan: free
-    buildCommand: pip install -r requirements-render.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install -r requirements-render-lite.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
     envVars:
       - key: NEWSAPI_KEY
         sync: false
@@ -14,6 +14,10 @@ services:
         value: "False"
       - key: CORS_ORIGINS
         value: "https://news-analyzer-frontend.onrender.com"
+      - key: PYTORCH_CUDA_ALLOC_CONF
+        value: "max_split_size_mb:128"
+      - key: OMP_NUM_THREADS
+        value: "1"
     healthCheckPath: /health
     autoDeploy: true
     branch: main

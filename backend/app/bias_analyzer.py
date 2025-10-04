@@ -34,18 +34,9 @@ class BiasAnalyzer:
             'fiscal responsibility', 'entrepreneurship', 'individual liberty'
         ]
         
-        # Try to load a political bias model (fallback to sentiment if not available)
-        try:
-            # Using a general sentiment model as a proxy for political bias
-            self.bias_classifier = pipeline(
-                "text-classification",
-                model="cardiffnlp/twitter-roberta-base-sentiment-latest",
-                device=0 if self.device == "cuda" else -1
-            )
-            logger.info("Loaded bias classification model")
-        except Exception as e:
-            logger.warning(f"Could not load bias model: {e}")
-            self.bias_classifier = None
+        # Don't load heavy models at startup to save memory
+        self.bias_classifier = None
+        self._model_loaded = False
 
     def analyze_bias(self, title: str, content: str) -> Dict[str, any]:
         """
@@ -146,8 +137,31 @@ class BiasAnalyzer:
             'textblob_subjectivity': textblob_subjectivity
         }
 
+    def _load_bias_model(self):
+        """Load the bias classification model only when needed."""
+        if self._model_loaded:
+            return
+            
+        try:
+            logger.info("Loading bias classification model...")
+            # Use a lighter model for memory efficiency
+            self.bias_classifier = pipeline(
+                "text-classification",
+                model="cardiffnlp/twitter-roberta-base-sentiment-latest",
+                device=0 if self.device == "cuda" else -1
+            )
+            self._model_loaded = True
+            logger.info("Loaded bias classification model")
+        except Exception as e:
+            logger.warning(f"Could not load bias model: {e}")
+            self.bias_classifier = None
+            self._model_loaded = True
+
     def _analyze_with_model(self, text: str) -> Dict[str, float]:
         """Analyze using transformer model if available."""
+        # Load model only when needed
+        self._load_bias_model()
+        
         if not self.bias_classifier:
             return {'model_score': 0.0, 'model_confidence': 0.0}
         

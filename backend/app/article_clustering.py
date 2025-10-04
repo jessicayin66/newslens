@@ -12,24 +12,26 @@ class ArticleClusterer:
     def __init__(self):
         """Initialize the article clustering service."""
         self.embedding_model = None
-        self._load_models()
+        self._model_loaded = False
+        # Don't load models at startup to save memory
     
     def _load_models(self):
-        """Load the sentence embedding model."""
+        """Load the sentence embedding model only when needed."""
+        if self._model_loaded:
+            return
+            
         try:
             logger.info("Loading sentence embedding model...")
-            # Try to load with offline mode first, then fallback to online
-            try:
-                self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2', use_auth_token=False)
-            except Exception as e:
-                logger.warning(f"Failed to load model online: {e}")
-                # Fallback to a simpler approach - we'll use basic text similarity
-                self.embedding_model = None
-                logger.info("Using fallback text similarity approach")
+            # Use a smaller, more memory-efficient model
+            self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2', use_auth_token=False)
+            self._model_loaded = True
             logger.info("Sentence embedding model loaded successfully")
         except Exception as e:
-            logger.error(f"Error loading embedding model: {e}")
+            logger.warning(f"Failed to load embedding model: {e}")
+            # Fallback to a simpler approach - we'll use basic text similarity
             self.embedding_model = None
+            self._model_loaded = True
+            logger.info("Using fallback text similarity approach")
     
     def extract_entities(self, text: str) -> List[str]:
         """Extract key entities from text using simple regex patterns."""
@@ -83,6 +85,9 @@ class ArticleClusterer:
                 # Combine title and description for better clustering
                 text = f"{article.get('title', '')} {article.get('content', '')}"
                 texts.append(text)
+            
+            # Try to load model if not already loaded
+            self._load_models()
             
             # Generate embeddings or use fallback
             if self.embedding_model is not None:
