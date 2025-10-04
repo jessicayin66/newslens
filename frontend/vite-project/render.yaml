@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: news-analyzer-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://news-analyzer-backend.onrender.com
+    autoDeploy: true
+    branch: main
+    rootDir: frontend/vite-project

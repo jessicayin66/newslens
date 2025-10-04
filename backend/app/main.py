@@ -8,6 +8,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from app.ai_summary import summarize_article
 import os
+from datetime import datetime
 
 env_path = Path(__file__).parent.parent / ".env" 
 load_dotenv(dotenv_path=env_path)
@@ -21,6 +22,7 @@ bias_analyzer = BiasAnalyzer()
 
 origins = [
     "http://localhost:5173",
+    "https://news-analyzer-frontend.onrender.com",
 ]
 
 # CORS setup
@@ -207,3 +209,12 @@ async def get_tldr_cache_stats():
         return stats
     except Exception as e:
         return {"error": str(e)}
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring."""
+    return {
+        "status": "healthy", 
+        "timestamp": datetime.now().isoformat(),
+        "service": "news-analyzer-backend"
+    }
